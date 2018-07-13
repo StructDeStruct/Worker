@@ -1,0 +1,21 @@
+﻿{
+  "profiles": {
+    "Project": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "UserName": "guest",
+        "Password": "guest",
+        "VirtualHost": "/",
+        "HostName": "localhost",
+        "port": "5672",
+        "QueueName": "Queue"
+      }
+    }
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information"
+    }
+  }
+}
