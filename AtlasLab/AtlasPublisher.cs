@@ -9,16 +9,18 @@ namespace Project.AtlasLab
 {
     public class AtlasPublisher
     {
-        public readonly MqService _mqService;
-        
-        public AtlasPublisher(MqService mqService)
+        public readonly MqService MqService;
+        private readonly ILogger<AtlasPublisher> _logger;
+            
+        public AtlasPublisher(MqService mqService, ILogger<AtlasPublisher> logger)
         {
-            _mqService = mqService;
+            MqService = mqService;
+            _logger = logger;
         }
         
         public void Write()
         {
-            _mqService._logger.LogInformation(
+            _logger.LogInformation(
                 "You can now send messages, type them till you get bored, then type 'quit it'");
             try
             {
@@ -28,10 +30,10 @@ namespace Project.AtlasLab
                 {
                     var message = JsonConvert.SerializeObject(new Message
                     {
-                        letter = letter,
-                        number = number++
+                        Letter = letter,
+                        Number = number++
                     });
-                    _mqService._channel.BasicPublish("", _mqService._config["QueueName"], null,
+                    MqService.Channel.BasicPublish("", MqService.Config.QueueName, null,
                         Encoding.UTF8.GetBytes(message));
                     letter = Console.ReadLine();
                 }

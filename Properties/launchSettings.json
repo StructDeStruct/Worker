@@ -9,7 +9,8 @@
         "VirtualHost": "/",
         "HostName": "localhost",
         "port": "5672",
-        "QueueName": "Queue"
+        "QueueName": "Queue",
+        "Mode": "Read"
       }
     }
   },

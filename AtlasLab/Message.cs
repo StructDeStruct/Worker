@@ -2,7 +2,7 @@
 {
     public class Message
     {
-        public int number { get; set; }
-        public string letter { get; set; }
+        public int Number { get; set; }
+        public string Letter { get; set; }
     }
 }

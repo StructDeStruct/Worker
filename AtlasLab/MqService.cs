@@ -1,32 +1,35 @@
 ﻿using System;
-using System.Threading;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 
 namespace Project.AtlasLab
 {
-    public class MqService
+    public class MqService : IDisposable
     {
-        public readonly ILogger _logger;
-        public Timer _timer;
-        public readonly IConnection _conn;
-        public readonly IModel _channel;
-        public readonly IConfiguration _config;
+        private readonly ILogger _logger;
+        public readonly ConfigService Config;
+        private readonly IConnection _conn;
+        public readonly IModel Channel;
 
-        public MqService(ILogger<MqService> logger, IConfiguration config)
+        public MqService(ILogger<MqService> logger, ConfigService config)
         {
             _logger = logger;
-            _config = config;
+            Config = config;
             var factory = new ConnectionFactory();
-            factory.UserName = _config["UserName"];
-            factory.Password = _config["Password"];
-            factory.VirtualHost = _config["VirtualHost"];
-            factory.HostName = _config["HostName"];
-            factory.Port = Int32.Parse(_config["Port"]);
+            factory.UserName = config.UserName;
+            factory.Password = config.Password;
+            factory.VirtualHost = config.VirtualHost;
+            factory.HostName = config.HostName;
+            factory.Port = config.Port;
             _conn = factory.CreateConnection();
-            _channel = _conn.CreateModel();
-            _channel.QueueDeclare(_config["QueueName"], true, false, false, null);
+            Channel = _conn.CreateModel();
+            Channel.QueueDeclare(config.QueueName, true, false, false, null);
+        }
+        
+        public void Dispose()
+        {
+            Channel?.Close();
+            _conn?.Close();
         }
     }
 }

@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 
-
 namespace Project.AtlasLab
 {
     class Host
@@ -19,15 +18,17 @@ namespace Project.AtlasLab
                     config.AddEnvironmentVariables();
                     if (args != null)
                     {
-                        config.AddCommandLine(args);
+                       config.AddCommandLine(args);
                     }
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddSingleton<ConfigService>();
                     services.AddSingleton<MqService>();
+                    services.AddSingleton<TimerService>();
                     services.AddSingleton<AtlasConsumer>();
                     services.AddSingleton<AtlasPublisher>();
-                    services.AddSingleton<IHostedService, User_Handler>();
+                    services.AddSingleton<IHostedService, UserHandler>();
                 })
                 .ConfigureLogging((hostingContext, logging) => {
                     logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
