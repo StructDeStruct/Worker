@@ -23,6 +23,10 @@ namespace Project.AtlasLab
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddSingleton<InputService>();
+                    services.AddSingleton<OutputService>();
+                    services.AddSingleton<SerializeService>();
+                    services.AddSingleton<DeserializeService>();
                     services.AddSingleton<ConfigService>();
                     services.AddSingleton<MqService>();
                     services.AddSingleton<TimerService>();
