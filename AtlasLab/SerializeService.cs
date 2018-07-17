@@ -1,6 +1,4 @@
-﻿using System.Text;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Project.AtlasLab
 {

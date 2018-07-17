@@ -1,23 +1,18 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Microsoft.Extensions.Logging;
-using RabbitMQ.Client;
 
 namespace Project.AtlasLab
 {
     public class AtlasPublisher
     {
-        public readonly MqService MqService;
-        private readonly SerializeService _serialize;
+        public readonly IMqService MqService;
         private readonly InputService _input;
         private readonly ILogger<AtlasPublisher> _logger;
             
-        public AtlasPublisher(MqService mqService, SerializeService serialize,
-            InputService input, ILogger<AtlasPublisher> logger)
+        public AtlasPublisher(MqService mqService, InputService input,
+            ILogger<AtlasPublisher> logger)
         {
             MqService = mqService;
-            _serialize = serialize;
             _input = input;
             _logger = logger;
         }
@@ -32,13 +27,12 @@ namespace Project.AtlasLab
                 var number = 0;
                 while (letter != "quit it")
                 {
-                    var message = _serialize.Serialize(new Message
+                    var message = new Message
                     {
                         Letter = letter,
                         Number = number++
-                    });
-                    MqService.Channel.BasicPublish("", MqService.Config.QueueName, null,
-                        Encoding.UTF8.GetBytes(message));
+                    };
+                    MqService.Publish(message);
                     letter = _input.Read();
                 }
             }

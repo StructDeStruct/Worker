@@ -54,11 +54,11 @@ namespace Project.AtlasLab
         
         private void Look() {
             _logger.LogInformation(
-                $"There are {_cons.MqService.Channel.MessageCount(_cons.MqService.Config.QueueName)} messages in the queue right now!");
+                $"There are {_cons.MqService.MessageCount()} messages in the queue right now!");
         }
         
         private void Purge() {
-            _cons.MqService.Channel.QueuePurge(_cons.MqService.Config.QueueName);
+            _cons.MqService.Purge();
             _logger.LogInformation("Queue was purged");
         }
     }
