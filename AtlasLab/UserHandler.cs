@@ -8,26 +8,30 @@ namespace Project.AtlasLab
 {
     public class UserHandler : IHostedService
     {
-        private readonly AtlasConsumer _cons;
-        private readonly AtlasPublisher _pub;
+        private readonly IAtlasConsumer _cons;
+        private readonly IAtlasPublisher _pub;
+        private readonly IConfigService _config;
+        private readonly IMqService _mqService;
         private readonly ILogger<UserHandler> _logger;
         
-        public UserHandler(AtlasConsumer cons, AtlasPublisher pub, ILogger<UserHandler> logger)
+        public UserHandler(AtlasConsumer cons, AtlasPublisher pub, MqService mqService,
+            ConfigService config, ILogger<UserHandler> logger)
         {
             _cons = cons;
             _pub = pub;
+            _config = config;
+            _mqService = mqService;
             _logger = logger;
         }
         
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Starting");
-            var mode = _cons.MqService.Config.Mode;
+            var mode = _config.Mode;
             switch (mode) 
             {
                 case "Read":
-                    _cons.TimerService.Timer = new Timer(_cons.Read, null, TimeSpan.Zero,
-                            TimeSpan.FromSeconds(5));
+                    _cons.TimerService.Repeat(_cons.Read);
                     break;
                 case "Write":
                     _pub.Write();
@@ -48,17 +52,17 @@ namespace Project.AtlasLab
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Stopping.");
-            _cons.TimerService.Timer?.Change(Timeout.Infinite, 0);
+            _cons.TimerService.StopRepeating();
             return Task.CompletedTask;
         }
         
         private void Look() {
             _logger.LogInformation(
-                $"There are {_cons.MqService.MessageCount()} messages in the queue right now!");
+                $"There are {_mqService.MessageCount()} messages in the queue right now!");
         }
         
         private void Purge() {
-            _cons.MqService.Purge();
+            _mqService.Purge();
             _logger.LogInformation("Queue was purged");
         }
     }

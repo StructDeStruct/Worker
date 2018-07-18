@@ -2,9 +2,8 @@
 {
     public interface IMqService
     {
-        ConfigService Config { get; set; }
-        void Publish(Message message);
-        Message Get();
+        void Publish(IMessage message);
+        IMessage Get();
         uint MessageCount();
         void Purge();
     }

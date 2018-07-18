@@ -2,11 +2,11 @@
 
 namespace Project.AtlasLab
 {
-    public class AtlasConsumer
+    public class AtlasConsumer : IAtlasConsumer
     {
-        public readonly IMqService MqService;
-        public readonly TimerService TimerService;
-        private readonly OutputService _output;
+        public IMqService MqService { get; set; }
+        public ITimerService TimerService { get; set; }
+        private readonly IOutputService _output;
         private readonly ILogger<AtlasConsumer> _logger;
         
         public AtlasConsumer(MqService mqService, TimerService timerService, 
@@ -22,7 +22,7 @@ namespace Project.AtlasLab
         {
             _logger.LogInformation(
                 $"There are {MqService.MessageCount()} messages in the queue right now!");
-            Message message = MqService.Get();
+            IMessage message = MqService.Get();
             while (message != null)
             {
                 _output.Write($"{message.Number} - {message.Letter}");

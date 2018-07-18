@@ -3,9 +3,19 @@ using System.Threading;
 
 namespace Project.AtlasLab
 {
-    public class TimerService : IDisposable
+    public class TimerService : IDisposable, ITimerService
     {
         public Timer Timer;
+
+        public void Repeat(TimerCallback callback)
+        {
+            Timer = new Timer(callback, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+        }
+
+        public void StopRepeating()
+        {
+            Timer?.Change(Timeout.Infinite, 0);
+        }
 
         public void Dispose()
         {

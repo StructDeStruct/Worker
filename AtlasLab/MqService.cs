@@ -7,34 +7,30 @@ namespace Project.AtlasLab
 {
     public class MqService : IDisposable, IMqService
     {
-        private readonly ILogger _logger;
-        private readonly SerializeService _serialize;
-        private readonly DeserializeService _deserialize;
-        
-        public ConfigService Config { get; set; }
-        //public readonly ConfigService Config;
+        private readonly ISerializeService _serialize;
+        private readonly IDeserializeService _deserialize;
+        public IConfigService Config { get; set; }
         private readonly IConnection _conn;
         public readonly IModel Channel;
 
-        public MqService(ILogger<MqService> logger, SerializeService serialize,
-            DeserializeService deserialize, ConfigService config)
+        public MqService(SerializeService serialize, DeserializeService deserialize,
+            ConfigService config)
         {
-            _logger = logger;
             _serialize = serialize;
             _deserialize = deserialize;
             Config = config;
             var factory = new ConnectionFactory();
-            factory.UserName = config.UserName;
-            factory.Password = config.Password;
-            factory.VirtualHost = config.VirtualHost;
-            factory.HostName = config.HostName;
-            factory.Port = config.Port;
+            factory.UserName = Config.UserName;
+            factory.Password = Config.Password;
+            factory.VirtualHost = Config.VirtualHost;
+            factory.HostName = Config.HostName;
+            factory.Port = Config.Port;
             _conn = factory.CreateConnection();
             Channel = _conn.CreateModel();
-            Channel.QueueDeclare(config.QueueName, true, false, false, null);
+            Channel.QueueDeclare(Config.QueueName, true, false, false, null);
         }
 
-        public void Publish(Message message)
+        public void Publish(IMessage message)
         {
             var data = _serialize.Serialize(message);
             
@@ -42,7 +38,7 @@ namespace Project.AtlasLab
                 Encoding.UTF8.GetBytes(data));
         }
 
-        public Message Get()
+        public IMessage Get()
         {
             var data = Channel.BasicGet(Config.QueueName, false);
             if (data == null)
@@ -51,9 +47,6 @@ namespace Project.AtlasLab
             }
             Channel.BasicAck(data.DeliveryTag, false);
             return _deserialize.Deserialize(Encoding.Default.GetString(data.Body));
-            /*return data != null
-                ? _deserialize.Deserialize(Encoding.Default.GetString(data.Body))
-                : null;*/
         }
 
         public uint MessageCount()

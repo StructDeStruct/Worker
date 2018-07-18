@@ -2,11 +2,11 @@
 
 namespace Project.AtlasLab
 {
-    public class DeserializeService
+    public class DeserializeService : IDeserializeService
     {
-        public Message Deserialize(string message)
+        public IMessage Deserialize(string value)
         {
-            return JsonConvert.DeserializeObject<Message>(message);
+            return JsonConvert.DeserializeObject<Message>(value);
         }
     }
 }

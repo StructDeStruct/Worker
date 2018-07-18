@@ -3,10 +3,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Project.AtlasLab
 {
-    public class AtlasPublisher
+    public class AtlasPublisher : IAtlasPublisher
     {
         public readonly IMqService MqService;
-        private readonly InputService _input;
+        private readonly IInputService _input;
         private readonly ILogger<AtlasPublisher> _logger;
             
         public AtlasPublisher(MqService mqService, InputService input,

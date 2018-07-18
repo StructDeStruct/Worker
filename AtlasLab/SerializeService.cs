@@ -2,9 +2,9 @@
 
 namespace Project.AtlasLab
 {
-    public class SerializeService
+    public class SerializeService : ISerializeService
     {
-        public string Serialize(Message message)
+        public string Serialize(IMessage message)
         {
             return JsonConvert.SerializeObject(message);
         }
