@@ -14,8 +14,8 @@ namespace Project.AtlasLab
         private readonly IMqService _mqService;
         private readonly ILogger<UserHandler> _logger;
         
-        public UserHandler(AtlasConsumer cons, AtlasPublisher pub, MqService mqService,
-            ConfigService config, ILogger<UserHandler> logger)
+        public UserHandler(IAtlasConsumer cons, IAtlasPublisher pub, IMqService mqService,
+            IConfigService config, ILogger<UserHandler> logger)
         {
             _cons = cons;
             _pub = pub;

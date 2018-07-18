@@ -9,8 +9,8 @@ namespace Project.AtlasLab
         private readonly IOutputService _output;
         private readonly ILogger<AtlasConsumer> _logger;
         
-        public AtlasConsumer(MqService mqService, TimerService timerService, 
-            OutputService output, ILogger<AtlasConsumer> logger)
+        public AtlasConsumer(IMqService mqService, ITimerService timerService, 
+            IOutputService output, ILogger<AtlasConsumer> logger)
         {
             MqService = mqService;
             TimerService = timerService;

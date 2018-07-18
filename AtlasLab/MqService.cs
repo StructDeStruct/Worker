@@ -13,8 +13,8 @@ namespace Project.AtlasLab
         private readonly IConnection _conn;
         public readonly IModel Channel;
 
-        public MqService(SerializeService serialize, DeserializeService deserialize,
-            ConfigService config)
+        public MqService(ISerializeService serialize, IDeserializeService deserialize,
+            IConfigService config)
         {
             _serialize = serialize;
             _deserialize = deserialize;

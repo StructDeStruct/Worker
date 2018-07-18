@@ -23,15 +23,15 @@ namespace Project.AtlasLab
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<InputService>();
-                    services.AddSingleton<OutputService>();
-                    services.AddSingleton<SerializeService>();
-                    services.AddSingleton<DeserializeService>();
-                    services.AddSingleton<ConfigService>();
-                    services.AddSingleton<MqService>();
-                    services.AddSingleton<TimerService>();
-                    services.AddSingleton<AtlasConsumer>();
-                    services.AddSingleton<AtlasPublisher>();
+                    services.AddSingleton<IInputService, InputService>();
+                    services.AddSingleton<IOutputService, OutputService>();
+                    services.AddSingleton<ISerializeService, SerializeService>();
+                    services.AddSingleton<IDeserializeService, DeserializeService>();
+                    services.AddSingleton<IConfigService, ConfigService>();
+                    services.AddSingleton<IMqService, MqService>();
+                    services.AddSingleton<ITimerService, TimerService>();
+                    services.AddSingleton<IAtlasConsumer, AtlasConsumer>();
+                    services.AddSingleton<IAtlasPublisher, AtlasPublisher>();
                     services.AddSingleton<IHostedService, UserHandler>();
                 })
                 .ConfigureLogging((hostingContext, logging) => {

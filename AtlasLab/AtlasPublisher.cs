@@ -9,7 +9,7 @@ namespace Project.AtlasLab
         private readonly IInputService _input;
         private readonly ILogger<AtlasPublisher> _logger;
             
-        public AtlasPublisher(MqService mqService, InputService input,
+        public AtlasPublisher(IMqService mqService, IInputService input,
             ILogger<AtlasPublisher> logger)
         {
             MqService = mqService;
