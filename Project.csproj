@@ -27,5 +27,12 @@
     <None Update="appSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Remove="Worker.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Worker.Tests\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Worker.Tests\**" />
   </ItemGroup>
 </Project>
