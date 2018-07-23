@@ -5,7 +5,7 @@ using RabbitMQ.Client;
 
 namespace Project.AtlasLab
 {
-    public class MqService : IDisposable, IMqService
+    public class MqService : IDisposable, IMqService, IService
     {
         private readonly ISerializeService _serialize;
         private readonly IDeserializeService _deserialize;

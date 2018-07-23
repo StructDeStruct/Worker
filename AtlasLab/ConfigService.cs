@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Project.AtlasLab
 {
-    public class ConfigService : IConfigService
+    public class ConfigService : IConfigService, IService
     {
         public string QueueName { get; }
         public string Mode { get; }

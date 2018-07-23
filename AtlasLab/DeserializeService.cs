@@ -2,7 +2,7 @@
 
 namespace Project.AtlasLab
 {
-    public class DeserializeService : IDeserializeService
+    public class DeserializeService : IDeserializeService, IService
     {
         public IMessage Deserialize(string value)
         {

@@ -2,7 +2,7 @@
 
 namespace Project.AtlasLab
 {
-    public class InputService : IInputService
+    public class InputService : IInputService, IService
     {
         public string Read()
         {

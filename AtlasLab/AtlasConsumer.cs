@@ -2,7 +2,7 @@
 
 namespace Project.AtlasLab
 {
-    public class AtlasConsumer : IAtlasConsumer
+    public class AtlasConsumer : IAtlasConsumer, IService
     {
         public IMqService MqService { get; set; }
         public ITimerService TimerService { get; set; }

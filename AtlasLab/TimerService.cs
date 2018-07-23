@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Project.AtlasLab
 {
-    public class TimerService : IDisposable, ITimerService
+    public class TimerService : IDisposable, ITimerService, IService
     {
         public Timer Timer;
 

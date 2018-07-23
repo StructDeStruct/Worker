@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Project.AtlasLab
 {
-    public class AtlasPublisher : IAtlasPublisher
+    public class AtlasPublisher : IAtlasPublisher, IService
     {
         public readonly IMqService MqService;
         private readonly IInputService _input;

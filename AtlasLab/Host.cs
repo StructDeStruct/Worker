@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,15 +26,13 @@ namespace Project.AtlasLab
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton<IInputService, InputService>();
-                    services.AddSingleton<IOutputService, OutputService>();
-                    services.AddSingleton<ISerializeService, SerializeService>();
-                    services.AddSingleton<IDeserializeService, DeserializeService>();
-                    services.AddSingleton<IConfigService, ConfigService>();
-                    services.AddSingleton<IMqService, MqService>();
-                    services.AddSingleton<ITimerService, TimerService>();
-                    services.AddSingleton<IAtlasConsumer, AtlasConsumer>();
-                    services.AddSingleton<IAtlasPublisher, AtlasPublisher>();
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    var serviceClasses = assembly.GetTypes().Where(s => s.GetInterface("IService") != null);
+                    foreach (var service in serviceClasses)
+                    {
+                        var serviceInterface = service.GetInterface("I" + service.Name);
+                        services.AddSingleton(serviceInterface, service);
+                    }
                     services.AddSingleton<IHostedService, UserHandler>();
                 })
                 .ConfigureLogging((hostingContext, logging) => {
