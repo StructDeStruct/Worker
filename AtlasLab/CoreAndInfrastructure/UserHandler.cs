@@ -1,24 +1,24 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AtlasLab.Abstract;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Project.AtlasLab
+namespace AtlasLab.CoreAndInfrastructure
 {
     public class UserHandler : IHostedService
     {
-        private readonly IAtlasConsumer _cons;
-        private readonly IAtlasPublisher _pub;
+        private readonly IAtlasConsumer _consumer;
+        private readonly IAtlasPublisher _publisher;
         private readonly IConfigService _config;
         private readonly IMqService _mqService;
         private readonly ILogger<UserHandler> _logger;
         
-        public UserHandler(IAtlasConsumer cons, IAtlasPublisher pub, IMqService mqService,
+        public UserHandler(IAtlasConsumer consumer, IAtlasPublisher publisher, IMqService mqService,
             IConfigService config, ILogger<UserHandler> logger)
         {
-            _cons = cons;
-            _pub = pub;
+            _consumer = consumer;
+            _publisher = publisher;
             _config = config;
             _mqService = mqService;
             _logger = logger;
@@ -31,10 +31,10 @@ namespace Project.AtlasLab
             switch (mode) 
             {
                 case "Read":
-                    _cons.TimerService.Repeat(_cons.Read);
+                    _consumer.TimerService.Repeat(_consumer.Read);
                     break;
                 case "Write":
-                    _pub.Write();
+                    _publisher.Write();
                     break;
                 case "Look":
                     Look();
@@ -52,7 +52,7 @@ namespace Project.AtlasLab
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Stopping.");
-            _cons.TimerService.StopRepeating();
+            _consumer.TimerService.StopRepeating();
             return Task.CompletedTask;
         }
         

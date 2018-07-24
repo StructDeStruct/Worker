@@ -1,6 +1,6 @@
-﻿namespace Project.AtlasLab
+﻿namespace AtlasLab.Abstract
 {
-    public class Message : IMessage
+    public class Message
     {
         public int Number { get; set; }
         public string Letter { get; set; }

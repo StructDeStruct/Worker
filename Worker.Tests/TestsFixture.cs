@@ -1,7 +1,8 @@
-﻿using System.Threading;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Moq;
-using Project.AtlasLab;
+using AtlasLab.Abstract;
+using AtlasLab.CoreAndInfrastructure;
+using AtlasLab.Messaging;
 
 namespace Worker.Tests
 {

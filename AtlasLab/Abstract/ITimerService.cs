@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Abstract
 {
     public interface ITimerService
     {

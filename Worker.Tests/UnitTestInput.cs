@@ -1,8 +1,7 @@
-using System;
 using System.Threading;
+using AtlasLab.Abstract;
 using Xunit;
 using Moq;
-using Project.AtlasLab;
 
 namespace Worker.Tests
 {

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using AtlasLab.Abstract;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Messaging
 {
     public class TimerService : IDisposable, ITimerService, IService
     {

@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
+using AtlasLab.Abstract;
 
-namespace Project.AtlasLab
+namespace AtlasLab.CoreAndInfrastructure
 {
     public class ConfigService : IConfigService, IService
     {

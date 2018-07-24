@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+using AtlasLab.CoreAndInfrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-
-namespace Project.AtlasLab
+namespace AtlasLab.App
 {
     class Host
     {
@@ -26,12 +25,21 @@ namespace Project.AtlasLab
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    Assembly assembly = Assembly.GetExecutingAssembly();
-                    var serviceClasses = assembly.GetTypes().Where(s => s.GetInterface("IService") != null);
-                    foreach (var service in serviceClasses)
+                    AssemblyName[] assemblies =
                     {
-                        var serviceInterface = service.GetInterface("I" + service.Name);
-                        services.AddSingleton(serviceInterface, service);
+                        new AssemblyName("AtlasLab.CoreAndInfrastructure"),
+                        new AssemblyName("AtlasLab.Data"),
+                        new AssemblyName("AtlasLab.Messaging") 
+                    };
+                    foreach (var assemblyName in assemblies)
+                    {
+                        var serviceClasses = Assembly.Load(assemblyName).GetTypes().Where(s => s.GetInterface("IService") != null);
+                        foreach (var service in serviceClasses)
+                        {
+                            var serviceInterface = service.GetInterface("I" + service.Name);
+                            services.AddSingleton(serviceInterface, service);
+                        }
+                        
                     }
                     services.AddSingleton<IHostedService, UserHandler>();
                 })

@@ -1,10 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using AtlasLab.Abstract;
+using Newtonsoft.Json;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Data
 {
     public class SerializeService : ISerializeService, IService
     {
-        public string Serialize(IMessage message)
+        public string Serialize(Message message)
         {
             return JsonConvert.SerializeObject(message);
         }

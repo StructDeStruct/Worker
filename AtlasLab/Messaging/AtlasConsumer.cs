@@ -1,10 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
+using AtlasLab.Abstract;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Messaging
 {
     public class AtlasConsumer : IAtlasConsumer, IService
     {
-        public IMqService MqService { get; set; }
+        private IMqService _mqService { get; set; }
         public ITimerService TimerService { get; set; }
         private readonly IOutputService _output;
         private readonly ILogger<AtlasConsumer> _logger;
@@ -12,7 +13,7 @@ namespace Project.AtlasLab
         public AtlasConsumer(IMqService mqService, ITimerService timerService, 
             IOutputService output, ILogger<AtlasConsumer> logger)
         {
-            MqService = mqService;
+            _mqService = mqService;
             TimerService = timerService;
             _output = output;
             _logger = logger;
@@ -21,12 +22,12 @@ namespace Project.AtlasLab
         public void Read(object state)
         {
             _logger.LogInformation(
-                $"There are {MqService.MessageCount()} messages in the queue right now!");
-            IMessage message = MqService.Get();
+                $"There are {_mqService.MessageCount()} messages in the queue right now!");
+            Message message = _mqService.Get();
             while (message != null)
             {
                 _output.Write($"{message.Number} - {message.Letter}");
-                message = MqService.Get();
+                message = _mqService.Get();
             }
         }
     }

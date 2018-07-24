@@ -1,6 +1,7 @@
 ﻿using System;
+using AtlasLab.Abstract;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Data
 {
     public class OutputService : IOutputService, IService
     {

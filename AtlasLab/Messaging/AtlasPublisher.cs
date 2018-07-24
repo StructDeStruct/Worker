@@ -1,18 +1,19 @@
 ﻿using System.IO;
+using AtlasLab.Abstract;
 using Microsoft.Extensions.Logging;
 
-namespace Project.AtlasLab
+namespace AtlasLab.Messaging
 {
     public class AtlasPublisher : IAtlasPublisher, IService
     {
-        public readonly IMqService MqService;
+        private readonly IMqService _mqService;
         private readonly IInputService _input;
         private readonly ILogger<AtlasPublisher> _logger;
             
         public AtlasPublisher(IMqService mqService, IInputService input,
             ILogger<AtlasPublisher> logger)
         {
-            MqService = mqService;
+            _mqService = mqService;
             _input = input;
             _logger = logger;
         }
@@ -32,7 +33,7 @@ namespace Project.AtlasLab
                         Letter = letter,
                         Number = number++
                     };
-                    MqService.Publish(message);
+                    _mqService.Publish(message);
                     letter = _input.Read();
                 }
             }

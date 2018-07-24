@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Text;
-using Microsoft.Extensions.Logging;
+using AtlasLab.Abstract;
 using RabbitMQ.Client;
 
-namespace Project.AtlasLab
+
+namespace AtlasLab.Messaging
 {
     public class MqService : IDisposable, IMqService, IService
     {
@@ -30,7 +31,7 @@ namespace Project.AtlasLab
             Channel.QueueDeclare(Config.QueueName, true, false, false, null);
         }
 
-        public void Publish(IMessage message)
+        public void Publish(Message message)
         {
             var data = _serialize.Serialize(message);
             
@@ -38,7 +39,7 @@ namespace Project.AtlasLab
                 Encoding.UTF8.GetBytes(data));
         }
 
-        public IMessage Get()
+        public Message Get()
         {
             var data = Channel.BasicGet(Config.QueueName, false);
             if (data == null)

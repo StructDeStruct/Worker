@@ -1,9 +1,9 @@
-﻿namespace Project.AtlasLab
+﻿namespace AtlasLab.Abstract
 {
     public interface IMqService
     {
-        void Publish(IMessage message);
-        IMessage Get();
+        void Publish(Message message);
+        Message Get();
         uint MessageCount();
         void Purge();
     }
