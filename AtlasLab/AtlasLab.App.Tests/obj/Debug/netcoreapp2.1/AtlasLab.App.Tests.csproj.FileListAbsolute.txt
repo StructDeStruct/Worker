@@ -1,0 +1,4 @@
+/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App.Tests/obj/Debug/netcoreapp2.1/AtlasLab.App.Tests.csprojAssemblyReference.cache
+/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App.Tests/obj/Debug/netcoreapp2.1/AtlasLab.App.Tests.csproj.CoreCompileInputs.cache
+/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App.Tests/obj/Debug/netcoreapp2.1/AtlasLab.App.Tests.AssemblyInfoInputs.cache
+/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App.Tests/obj/Debug/netcoreapp2.1/AtlasLab.App.Tests.AssemblyInfo.cs

@@ -1,0 +1,77 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App/AtlasLab.App.csproj",
+    "projectName": "AtlasLab.App",
+    "projectPath": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App/AtlasLab.App.csproj",
+    "outputPath": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.App/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp2.1"
+    ],
+    "frameworks": {
+      "netcoreapp2.1": {
+        "projectReferences": {
+          "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Messaging/AtlasLab.Messaging.csproj": {
+            "projectPath": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Messaging/AtlasLab.Messaging.csproj"
+          },
+          "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Core/AtlasLab.Core.csproj": {
+            "projectPath": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Core/AtlasLab.Core.csproj"
+          },
+          "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Data/AtlasLab.Data.csproj": {
+            "projectPath": "/home/snaky/Рабочий стол/Летняя практика 2018/Tests-progtamming/Work/Worker/AtlasLab/AtlasLab.Data/AtlasLab.Data.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.1": {
+      "dependencies": {
+        "Microsoft.Extensions.Configuration.CommandLine": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.Extensions.Configuration.EnvironmentVariables": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.Extensions.DependencyInjection": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.Extensions.Hosting": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.Extensions.Logging.Configuration": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.Extensions.Logging.Console": {
+          "target": "Package",
+          "version": "[2.1.1, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.1.0, )",
+          "autoReferenced": true
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}
