@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using AtlasLab.CoreAndInfrastructure;
+using AtlasLab.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,10 +27,11 @@ namespace AtlasLab.App
                 {
                     AssemblyName[] assemblies =
                     {
-                        new AssemblyName("AtlasLab.CoreAndInfrastructure"),
+                        new AssemblyName("AtlasLab.Core"),
                         new AssemblyName("AtlasLab.Data"),
                         new AssemblyName("AtlasLab.Messaging") 
                     };
+     
                     foreach (var assemblyName in assemblies)
                     {
                         var serviceClasses = Assembly.Load(assemblyName).GetTypes().Where(s => s.GetInterface("IService") != null);

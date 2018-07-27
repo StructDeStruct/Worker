@@ -3,65 +3,64 @@ using System.Text;
 using AtlasLab.Abstract;
 using RabbitMQ.Client;
 
-
 namespace AtlasLab.Messaging
 {
     public class MqService : IDisposable, IMqService, IService
     {
         private readonly ISerializeService _serialize;
         private readonly IDeserializeService _deserialize;
-        public IConfigService Config { get; set; }
+        private IConfigService _config;
         private readonly IConnection _conn;
-        public readonly IModel Channel;
+        private readonly IModel _channel;
 
         public MqService(ISerializeService serialize, IDeserializeService deserialize,
             IConfigService config)
         {
             _serialize = serialize;
             _deserialize = deserialize;
-            Config = config;
+            _config = config;
             var factory = new ConnectionFactory();
-            factory.UserName = Config.UserName;
-            factory.Password = Config.Password;
-            factory.VirtualHost = Config.VirtualHost;
-            factory.HostName = Config.HostName;
-            factory.Port = Config.Port;
+            factory.UserName = _config.UserName;
+            factory.Password = _config.Password;
+            factory.VirtualHost = _config.VirtualHost;
+            factory.HostName = _config.HostName;
+            factory.Port = _config.Port;
             _conn = factory.CreateConnection();
-            Channel = _conn.CreateModel();
-            Channel.QueueDeclare(Config.QueueName, true, false, false, null);
+            _channel = _conn.CreateModel();
+            _channel.QueueDeclare(_config.QueueName, true, false, false, null);
         }
 
         public void Publish(Message message)
         {
             var data = _serialize.Serialize(message);
             
-            Channel.BasicPublish("", Config.QueueName, null,
+            _channel.BasicPublish("", _config.QueueName, null,
                 Encoding.UTF8.GetBytes(data));
         }
 
         public Message Get()
         {
-            var data = Channel.BasicGet(Config.QueueName, false);
+            var data = _channel.BasicGet(_config.QueueName, false);
             if (data == null)
             {
                 return null;
             }
-            Channel.BasicAck(data.DeliveryTag, false);
+            _channel.BasicAck(data.DeliveryTag, false);
             return _deserialize.Deserialize(Encoding.Default.GetString(data.Body));
         }
 
         public uint MessageCount()
         {
-            return Channel.MessageCount(Config.QueueName);
+            return _channel.MessageCount(_config.QueueName);
         }
 
         public void Purge()
         {
-            Channel.QueuePurge(Config.QueueName);
+            _channel.QueuePurge(_config.QueueName);
         }
         public void Dispose()
         {
-            Channel?.Close();
+            _channel?.Close();
             _conn?.Close();
         }
     }

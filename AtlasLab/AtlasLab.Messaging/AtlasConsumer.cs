@@ -6,15 +6,12 @@ namespace AtlasLab.Messaging
     public class AtlasConsumer : IAtlasConsumer, IService
     {
         private IMqService _mqService { get; set; }
-        public ITimerService TimerService { get; set; }
         private readonly IOutputService _output;
         private readonly ILogger<AtlasConsumer> _logger;
         
-        public AtlasConsumer(IMqService mqService, ITimerService timerService, 
-            IOutputService output, ILogger<AtlasConsumer> logger)
+        public AtlasConsumer(IMqService mqService, IOutputService output, ILogger<AtlasConsumer> logger)
         {
             _mqService = mqService;
-            TimerService = timerService;
             _output = output;
             _logger = logger;
         }

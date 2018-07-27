@@ -4,20 +4,22 @@ using AtlasLab.Abstract;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace AtlasLab.CoreAndInfrastructure
+namespace AtlasLab.Core
 {
     public class UserHandler : IHostedService
     {
         private readonly IAtlasConsumer _consumer;
+        private readonly ITimerService _timer;
         private readonly IAtlasPublisher _publisher;
         private readonly IConfigService _config;
         private readonly IMqService _mqService;
         private readonly ILogger<UserHandler> _logger;
         
-        public UserHandler(IAtlasConsumer consumer, IAtlasPublisher publisher, IMqService mqService,
+        public UserHandler(IAtlasConsumer consumer, ITimerService timer, IAtlasPublisher publisher, IMqService mqService,
             IConfigService config, ILogger<UserHandler> logger)
         {
             _consumer = consumer;
+            _timer = timer;
             _publisher = publisher;
             _config = config;
             _mqService = mqService;
@@ -31,7 +33,7 @@ namespace AtlasLab.CoreAndInfrastructure
             switch (mode) 
             {
                 case "Read":
-                    _consumer.TimerService.Repeat(_consumer.Read);
+                    _timer.Repeat(_consumer.Read);
                     break;
                 case "Write":
                     _publisher.Write();
@@ -52,7 +54,7 @@ namespace AtlasLab.CoreAndInfrastructure
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _logger.LogInformation("Stopping.");
-            _consumer.TimerService.StopRepeating();
+            _timer.StopRepeating();
             return Task.CompletedTask;
         }
         

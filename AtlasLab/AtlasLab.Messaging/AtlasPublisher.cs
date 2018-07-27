@@ -37,9 +37,9 @@ namespace AtlasLab.Messaging
                     letter = _input.Read();
                 }
             }
-            catch
+            catch(IOException)
             {
-                new IOException();
+                throw new IOException("Cancelation message \"quit it\" was awaited");
             }
         }
     }
